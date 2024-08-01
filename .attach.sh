@@ -20,4 +20,4 @@ echo "Connect to ${IAC_RESOURCE} (host=${SSH_HOST})"
 
 #echo "Variables: $IAC_VARIABLES"
 
-sshpass -p "${SSH_PASSWORD}" ssh -o "StrictHostKeyChecking no" "${SSH_USER}@${SSH_HOST}" -p "${SSH_PORT:-22}"
+sshpass -p "${SSH_PASSWORD}" ssh -o "StrictHostKeyChecking no" "${SSH_USER}@${SSH_HOST}" -p "${SSH_PORT:-22}" -t "cd /opt/iac/${IAC_RESOURCE}; bash --login"
