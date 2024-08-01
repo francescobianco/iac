@@ -16,7 +16,7 @@ for variable in ${IAC_VARIABLES}; do
   [ -n "${password}" ] && SSH_PASSWORD="${password}"
 done
 
-echo "Deploying ${IAC_RESOURCE} (host=${SSH_HOST})"
+echo "Connect to ${IAC_RESOURCE} (host=${SSH_HOST})"
 
 #echo "Hello World! $IAC_RESOURCE $IAC_VARIABLES"
 
@@ -29,4 +29,4 @@ sshpass -p "${SSH_PASSWORD}" ssh -o "StrictHostKeyChecking no" "${SSH_USER}@${SS
   git pull
 EOF
 
-sshpass -p "${SSH_PASSWORD}" ssh "${SSH_USER}@${SSH_HOST}" -p "${SSH_PORT:-22}" bash -s -- "$IAC_VARIABLES"
+sshpass -p "${SSH_PASSWORD}" ssh "${SSH_USER}@${SSH_HOST}" -p "${SSH_PORT:-22}" bash -s -- "$IAC_VARIABLES pwd=/opt/iac/${IAC_RESOURCE}"

@@ -7,5 +7,6 @@ for variable in "$@"; do
 done
 
 cd "${PWD}" || exit 1
-
-make backup
+echo $PWD
+printenv
+pwd

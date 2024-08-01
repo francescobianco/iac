@@ -1,6 +1,14 @@
 
+backup:
+ifndef resource
+	$(error "Missing 'resource' argument, type: make backup resource=PATH")
+endif
+	@echo "Backup $(resource)"
+	@cat $(resource)/.backup.sh | bash .exec.sh $(resource)
+
 deploy:
 ifndef resource
 	$(error "Missing 'resource' argument, type: make deploy resource=PATH")
 endif
-	@cat $(resource)/.deploy.sh | bash .deploy.sh $(resource)
+	@echo "Deploy $(resource)"
+	@cat $(resource)/.deploy.sh | bash .exec.sh $(resource)
