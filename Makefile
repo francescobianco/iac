@@ -25,6 +25,9 @@ ifndef resource
 	$(error "Missing 'resource' argument, type: make deploy resource=PATH")
 endif
 	@echo "Deploy resource from '$(resource)' directory"
+	@git add .
+	@git commit -am "Deploy resource from '$(resource)' directory" || true
+	@git push
 	@cat $(resource)/.deploy.sh | bash .exec.sh $(resource)
 
 shell: attach
