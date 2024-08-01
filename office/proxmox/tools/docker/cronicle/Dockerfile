@@ -1,0 +1,2 @@
+FROM soulteary/cronicle
+

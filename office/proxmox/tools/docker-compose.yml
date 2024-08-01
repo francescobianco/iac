@@ -9,8 +9,9 @@ services:
       - ./kanboard/data:/var/www/app/data
       - ./kanboard/plugins:/var/www/app/plugins
 
+
   cronicle:
-    image: soulteary/cronicle
+    build: ./docker/cronicle
     ports:
       - "3012:3012"
     volumes:
