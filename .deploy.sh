@@ -23,7 +23,8 @@ sshpass -p "${SSH_PASSWORD}" ssh "${SSH_USER}@${SSH_HOST}" -p "${SSH_PORT:-22}" 
   command -v git >/dev/null 2>&1 || apt-get install -y git
   test -d /opt/iac || git config --global --add safe.directory /opt/iac
   test -d /opt/iac || git clone https://github.com/francescobianco/iac /opt/iac
-  echo "Hello World!"
+  cd /opt/iac
+  git pull
 EOF
 
 sshpass -p "${SSH_PASSWORD}" ssh "${SSH_USER}@${SSH_HOST}" -p "${SSH_PORT:-22}" bash -s -- "$IAC_VARIABLES"
