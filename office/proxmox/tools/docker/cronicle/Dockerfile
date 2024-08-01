@@ -1,3 +1,3 @@
 FROM soulteary/cronicle
 
-RUN apk add make
+RUN apk add bash make
