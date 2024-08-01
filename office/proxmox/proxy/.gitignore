@@ -1,5 +1,2 @@
-/.idea/
-/.vscode/
-/data/
-/letsencrypt/
-/status/
+/nginx/
+/statping/
