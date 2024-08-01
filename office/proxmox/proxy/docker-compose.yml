@@ -1,0 +1,23 @@
+services:
+
+  app:
+    image: 'jc21/nginx-proxy-manager:latest'
+    restart: unless-stopped
+    ports:
+      - '80:80'
+      - '443:443'
+      - '81:81'
+    environment:
+      - DISABLE_IPV6=true
+    volumes:
+      - ./data:/data
+      - ./letsencrypt:/etc/letsencrypt
+
+  status:
+    image: statping/statping
+    ports:
+      - '8080:8080'
+    volumes:
+      - ./status:/app
+    stop_grace_period: 1m
+    restart: unless-stopped
