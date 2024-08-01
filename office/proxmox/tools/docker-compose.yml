@@ -8,3 +8,14 @@ services:
     volumes:
       - ./kanboard/data:/var/www/app/data
       - ./kanboard/plugins:/var/www/app/plugins
+
+  cronicle:
+    image: soulteary/cronicle
+    ports:
+      - "3012:3012"
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
+      - ./cronicle/data:/opt/cronicle/data:rw \
+      - ./cronicle/logs:/opt/cronicle/logs:rw \
+      - ./cronicle/plugins:/opt/cronicle/plugins:rw \
