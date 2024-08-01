@@ -18,7 +18,7 @@ ifndef resource
 	$(error "Missing 'resource' argument, type: make backup resource=PATH")
 endif
 	@echo "Backup resource from '$(resource)' directory"
-	@cat $(resource)/.backup.sh | bash .exec.sh $(resource)
+	@cat $(resource)/.backup.sh | bash .backup.sh $(resource)
 
 deploy:
 ifndef resource
