@@ -16,6 +16,7 @@ services:
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - /etc/timezone:/etc/timezone:ro
-      - ./cronicle/data:/opt/cronicle/data:rw \
-      - ./cronicle/logs:/opt/cronicle/logs:rw \
-      - ./cronicle/plugins:/opt/cronicle/plugins:rw \
+      - ./cronicle/data:/opt/cronicle/data:rw
+      - ./cronicle/logs:/opt/cronicle/logs:rw
+      - ./cronicle/plugins:/opt/cronicle/plugins:rw
+      - /opt/iac:/opt/iac:ro
