@@ -1,4 +1,11 @@
 
+attach:
+ifndef resource
+	$(error "Missing 'resource' argument, type: make attach resource=PATH")
+endif
+	@echo "Attach resource from '$(resource)' directory"
+	@bash .attach.sh $(resource)
+
 backup:
 ifndef resource
 	$(error "Missing 'resource' argument, type: make backup resource=PATH")
@@ -12,3 +19,5 @@ ifndef resource
 endif
 	@echo "Deploy $(resource)"
 	@cat $(resource)/.deploy.sh | bash .exec.sh $(resource)
+
+shell: attach

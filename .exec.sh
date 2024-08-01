@@ -18,7 +18,7 @@ done
 
 echo "Connect to ${IAC_RESOURCE} (host=${SSH_HOST})"
 
-#echo "Hello World! $IAC_RESOURCE $IAC_VARIABLES"
+#echo "Variables: $IAC_VARIABLES"
 
 sshpass -p "${SSH_PASSWORD}" ssh -o "StrictHostKeyChecking no" "${SSH_USER}@${SSH_HOST}" -p "${SSH_PORT:-22}" bash -s -- "$IAC_VARIABLES" << 'EOF'
   apt-get update >/dev/null 2>&1
@@ -26,7 +26,9 @@ sshpass -p "${SSH_PASSWORD}" ssh -o "StrictHostKeyChecking no" "${SSH_USER}@${SS
   test -d /opt/iac || git config --global --add safe.directory /opt/iac
   test -d /opt/iac || git clone https://github.com/francescobianco/iac /opt/iac
   cd /opt/iac
-  git pull
+  git pull || true
 EOF
 
-sshpass -p "${SSH_PASSWORD}" ssh "${SSH_USER}@${SSH_HOST}" -p "${SSH_PORT:-22}" bash -s -- "$IAC_VARIABLES pwd=/opt/iac/${IAC_RESOURCE}"
+echo "Execute commands as ${SSH_USER}"
+
+sshpass -p "${SSH_PASSWORD}" ssh -o "StrictHostKeyChecking no" "${SSH_USER}@${SSH_HOST}" -p "${SSH_PORT:-22}" bash -s -- "$IAC_VARIABLES pwd=/opt/iac/${IAC_RESOURCE}"
