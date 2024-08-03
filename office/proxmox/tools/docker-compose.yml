@@ -5,6 +5,8 @@ services:
     image: kanboard/kanboard:latest
     ports:
       - "8081:80"
+    environment:
+      - PLUGIN_INSTALLER=true
     volumes:
       - ./kanboard/data:/var/www/app/data
       - ./kanboard/plugins:/var/www/app/plugins
