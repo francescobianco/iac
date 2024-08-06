@@ -19,7 +19,7 @@ authorize:
 	@bash .authorize.sh $(resource)
 
 backup:
-	@bash .backup.sh $(resource)
+	@bash -x .backup.sh $(resource)
 
 deploy: authorize
 ifndef resource
