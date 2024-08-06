@@ -33,6 +33,11 @@ sshpass -p "${SSH_PASSWORD}" ssh -o "StrictHostKeyChecking no" "${SSH_USER}@${SS
   command -v rclone >/dev/null 2>&1 || curl https://rclone.org/install.sh | bash
 EOF
 
+if [ ! -f "${HOME}/.config/rclone/rclone.conf" ]; then
+  echo "Rclone config not found: ${HOME}/.config/rclone/rclone.conf"
+  exit 1
+fi
+
 ## Share rclone config
 sshpass -p "${SSH_PASSWORD}" ssh -p "${SSH_PORT:-22}" "${SSH_USER}@${SSH_HOST}" mkdir -p "$(dirname "${IAC_RCLONE_CONFIG}")"
 sshpass -p "${SSH_PASSWORD}" scp -P "${SSH_PORT:-22}" "${HOME}/.config/rclone/rclone.conf" "${SSH_USER}@${SSH_HOST}:${IAC_RCLONE_CONFIG}"
