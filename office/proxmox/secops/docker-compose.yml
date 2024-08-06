@@ -12,3 +12,4 @@ services:
       - ./cronicle/logs:/opt/cronicle/logs:rw
       - ./cronicle/plugins:/opt/cronicle/plugins:rw
       - /opt/iac:/opt/iac:ro
+      - /root/.hosts:/root/.hosts:ro

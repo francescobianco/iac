@@ -31,4 +31,4 @@ EOF
 
 echo "Execute commands as ${SSH_USER}"
 
-sshpass -p "${SSH_PASSWORD}" ssh "${SSH_USER}@${SSH_HOST}" -p "${SSH_PORT:-22}" bash -s -- "$IAC_VARIABLES pwd=/opt/iac/${IAC_RESOURCE}"
+sshpass -p "${SSH_PASSWORD}" ssh -p "${SSH_PORT:-22}" "${SSH_USER}@${SSH_HOST}" bash -s -- "$IAC_VARIABLES pwd=/opt/iac/${IAC_RESOURCE}"

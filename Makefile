@@ -16,16 +16,12 @@ endif
 	@bash .attach.sh $(resource)
 
 authorize:
-ifndef resource
-	$(error "Missing 'resource' argument, type: make attach resource=PATH")
-endif
-	@echo "Authorize resource from '$(resource)' directory"
 	@bash .authorize.sh $(resource)
 
 backup:
 	@bash .backup.sh $(resource)
 
-deploy:
+deploy: authorize
 ifndef resource
 	$(error "Missing 'resource' argument, type: make deploy resource=PATH")
 endif
