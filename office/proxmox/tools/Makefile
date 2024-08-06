@@ -1,5 +1,5 @@
 
 start:
-	@mdkir -p ./data
+	@mkdir -p ./data
 	@chmod 777 ./data
 	@docker compose up -d --build --force-recreate --remove-orphans
