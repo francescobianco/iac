@@ -14,3 +14,5 @@ services:
       - /opt/iac:/opt/iac:ro
       - /root/.hosts:/root/.hosts:ro
       - /root/.config/rclone:/root/.config/rclone:ro
+      - /root/.ssh/id_rsa:/root/.ssh/id_rsa:ro
+      - /root/.ssh/id_rsa.pub:/root/.ssh/id_rsa.pub:ro
