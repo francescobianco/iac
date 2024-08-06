@@ -1,5 +1,5 @@
 
 start:
-	@mkdir -p ./data
-	@chmod 777 ./data
+	@mkdir -p ./nodered
+	@chmod 777 ./nodered
 	@docker compose up -d --build --force-recreate --remove-orphans

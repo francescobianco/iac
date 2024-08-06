@@ -19,7 +19,7 @@ services:
 
   ## http://192.168.144.72:1880/
   nodered:
-    image: nodered/node-red:latest
+    build: ./docker/nodered
     environment:
       - TZ=Europe/Rome
     ports:
