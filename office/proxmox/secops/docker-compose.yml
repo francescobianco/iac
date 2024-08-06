@@ -13,3 +13,4 @@ services:
       - ./cronicle/plugins:/opt/cronicle/plugins:rw
       - /opt/iac:/opt/iac:ro
       - /root/.hosts:/root/.hosts:ro
+      - /root/.config/rclone:/root/.config/rclone:ro
