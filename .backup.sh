@@ -3,10 +3,16 @@ set -e
 
 IAC_RESOURCE=$(echo "$1" | sed 's/\/*$//g')
 IAC_VARIABLES=$(grep "^host=[a-z0-9.]* name=.* iac=${IAC_RESOURCE}" "${HOME}/.hosts" | head -1)
+IAC_BACKUP_SCRIPT=$1/.backup.sh
 
 if [ -z "${IAC_VARIABLES}" ]; then
   echo "Resource host not found: $1"
   exit 1
+fi
+
+if [ ! -f "${IAC_BACKUP_SCRIPT}" ]; then
+  echo "Ignore to backup '${IAC_RESOURCE}'. File not found: ${IAC_BACKUP_SCRIPT}"
+  exit 0
 fi
 
 for variable in ${IAC_VARIABLES}; do
@@ -16,25 +22,23 @@ for variable in ${IAC_VARIABLES}; do
   [ -n "${password}" ] && SSH_PASSWORD="${password}"
 done
 
-echo "Connect to ${IAC_RESOURCE} (host=${SSH_HOST})"
+echo "Backup '${IAC_RESOURCE}' (host=${SSH_HOST})"
 
-#echo "Variables: $IAC_VARIABLES"
-#apt-get update
-#apt-get install unzip
-#curl https://rclone.org/install.sh | bash
+IAC_RCLONE_CONFIG=/root/.config/rclone/rclone_backup.conf
 
-
+## Install rclone
 sshpass -p "${SSH_PASSWORD}" ssh -o "StrictHostKeyChecking no" "${SSH_USER}@${SSH_HOST}" -p "${SSH_PORT:-22}" bash -s -- "$IAC_VARIABLES" << 'EOF'
   apt-get update >/dev/null 2>&1
-  command -v git >/dev/null 2>&1 || apt-get install -y git
-  test -d /opt/iac || git config --global --add safe.directory /opt/iac
-  test -d /opt/iac || git clone https://github.com/francescobianco/iac /opt/iac
-  cd /opt/iac
-  git pull || true
+  command -v unzip >/dev/null 2>&1 || apt-get install -y unzip
+  command -v rclone >/dev/null 2>&1 || curl https://rclone.org/install.sh | bash
 EOF
 
-echo "Execute commands as ${SSH_USER}"
+## Share rclone config
+sshpass -p "${SSH_PASSWORD}" ssh -p "${SSH_PORT:-22}" "${SSH_USER}@${SSH_HOST}" mkdir -p "$(dirname "${IAC_RCLONE_CONFIG}")"
+sshpass -p "${SSH_PASSWORD}" scp -P "${SSH_PORT:-22}" "${HOME}/.config/rclone/rclone.conf" "${SSH_USER}@${SSH_HOST}:${IAC_RCLONE_CONFIG}"
 
-sshpass -p "${SSH_PASSWORD}" scp -P "${SSH_PORT:-22}" "${HOME}/.config/rclone/rclone.conf" "${SSH_USER}@${SSH_HOST}:/root/.config/rclone/rclone.conf"
-sshpass -p "${SSH_PASSWORD}" ssh "${SSH_USER}@${SSH_HOST}" -p "${SSH_PORT:-22}" bash -s -- "$IAC_VARIABLES pwd=/opt/iac/${IAC_RESOURCE}"
-sshpass -p "${SSH_PASSWORD}" ssh "${SSH_USER}@${SSH_HOST}" -p "${SSH_PORT:-22}" rm /root/.config/rclone/rclone.conf
+## Execute remote backup script
+sshpass -p "${SSH_PASSWORD}" ssh -p "${SSH_PORT:-22}" "${SSH_USER}@${SSH_HOST}" bash -s -- "$IAC_VARIABLES pwd=/opt/iac/${IAC_RESOURCE} rclone_config=${IAC_RCLONE_CONFIG}" < "${IAC_BACKUP_SCRIPT}"
+
+## Remove rclone config for security reasons
+sshpass -p "${SSH_PASSWORD}" ssh -p "${SSH_PORT:-22}" "${SSH_USER}@${SSH_HOST}" rm -f "${IAC_RCLONE_CONFIG}"

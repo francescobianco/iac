@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+set -e
+
+for variable in "$@"; do
+  declare "$variable"
+  [ -n "${host}" ] && SSH_HOST="${host}"
+  [ -n "${user}" ] && SSH_USER="${user}"
+  [ -n "${password}" ] && SSH_PASSWORD="${password}"
+done
+
+sshpass -p "${SSH_PASSWORD}" scp -P "${SSH_PORT:-22}" "${HOME}/.hosts" "${SSH_USER}@${SSH_HOST}:/root/.hosts"

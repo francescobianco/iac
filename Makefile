@@ -1,4 +1,6 @@
 
+resource ?= $(r)
+
 apply:
 ifndef resource
 	$(error "Missing 'resource' argument, type: make attach resource=PATH")
@@ -13,12 +15,15 @@ endif
 	@echo "Attach resource from '$(resource)' directory"
 	@bash .attach.sh $(resource)
 
-backup:
+authorize:
 ifndef resource
-	$(error "Missing 'resource' argument, type: make backup resource=PATH")
+	$(error "Missing 'resource' argument, type: make attach resource=PATH")
 endif
-	@echo "Backup resource from '$(resource)' directory"
-	@cat $(resource)/.backup.sh | bash .backup.sh $(resource)
+	@echo "Authorize resource from '$(resource)' directory"
+	@bash .authorize.sh $(resource)
+
+backup:
+	@bash .backup.sh $(resource)
 
 deploy:
 ifndef resource
