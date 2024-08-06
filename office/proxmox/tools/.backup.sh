@@ -11,4 +11,4 @@ done
 cd "${PWD}" || exit 1
 
 rclone sync -v ./kanboard "gdrive:/Backup/iac/${IAC_RESOURCE}/kanboard" --delete-before
-rclone sync -v ./nodered "gdrive:/Backup/iac/${IAC_RESOURCE}/nodered" --delete-before
+rclone sync -v ./nodered "gdrive:/Backup/iac/${IAC_RESOURCE}/nodered" --delete-before --exclude '{node_modules,.npm}/**'
