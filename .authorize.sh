@@ -13,7 +13,7 @@ IAC_AUTHROIZE_FILE=$1/.authorize.sh
 
 if [ ! -f "${IAC_AUTHROIZE_FILE}" ]; then
   echo "Ignore to authorize '${IAC_RESOURCE}'. File not found: ${IAC_AUTHROIZE_FILE}"
-  exit 1
+  exit 0
 fi
 
 bash "${IAC_AUTHROIZE_FILE}" ${IAC_VARIABLES}
