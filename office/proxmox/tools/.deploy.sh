@@ -9,3 +9,5 @@ done
 cd "${PWD}" || exit 1
 
 make start
+
+echo " - Nodered: http://192.168.144.72:1880"
