@@ -1,3 +1,3 @@
 FROM soulteary/cronicle
 
-RUN apk add bash make sshpass opensssh-client
+RUN apk add --update --no-cache bash make sshpass openssh-client
