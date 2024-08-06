@@ -43,7 +43,7 @@ if [ ! -f "${HOME}/.config/rclone/rclone.conf" ]; then
 fi
 
 ## Share rclone config
-sshpass -p "${SSH_PASSWORD}" ssh -p "${SSH_PORT:-22}" "${SSH_USER}@${SSH_HOST}" mkdir -p "$(dirname "${IAC_RCLONE_CONFIG}")"
+sshpass -p "${SSH_PASSWORD}" ssh -v -p "${SSH_PORT:-22}" "${SSH_USER}@${SSH_HOST}" mkdir -p "$(dirname "${IAC_RCLONE_CONFIG}")"
 sshpass -p "${SSH_PASSWORD}" scp -P "${SSH_PORT:-22}" "${HOME}/.config/rclone/rclone.conf" "${SSH_USER}@${SSH_HOST}:${IAC_RCLONE_CONFIG}"
 
 ## Execute remote backup script
