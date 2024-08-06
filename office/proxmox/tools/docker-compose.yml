@@ -17,15 +17,13 @@ services:
       - ./kanboard/data:/var/www/app/data
       - ./kanboard/plugins:/var/www/app/plugins
 
-
-  cronicle:
-    build: ./docker/cronicle
+  ## http://192.168.144.72:1880/
+  nodered:
+    image: nodered/node-red:latest
+    environment:
+      - TZ=Europe/Amsterdam
     ports:
-      - "3012:3012"
+      - "1880:1880"
     volumes:
-      - /etc/localtime:/etc/localtime:ro
-      - /etc/timezone:/etc/timezone:ro
-      - ./cronicle/data:/opt/cronicle/data:rw
-      - ./cronicle/logs:/opt/cronicle/logs:rw
-      - ./cronicle/plugins:/opt/cronicle/plugins:rw
-      - /opt/iac:/opt/iac:ro
+      - ./nodered:/data
+
