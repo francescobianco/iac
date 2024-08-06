@@ -29,11 +29,11 @@ IAC_RCLONE_CONFIG=/root/.config/rclone/rclone_backup.conf
 echo "A"
 
 ## Install rclone
-sshpass -p "${SSH_PASSWORD}" ssh -o "StrictHostKeyChecking no" "${SSH_USER}@${SSH_HOST}" -p "${SSH_PORT:-22}" bash -s -- "$IAC_VARIABLES" << 'EOF'
-  apt-get update >/dev/null 2>&1
-  command -v unzip >/dev/null 2>&1 || apt-get install -y unzip
-  command -v rclone >/dev/null 2>&1 || curl https://rclone.org/install.sh | bash
-EOF
+#sshpass -p "${SSH_PASSWORD}" ssh -o "StrictHostKeyChecking no" "${SSH_USER}@${SSH_HOST}" -p "${SSH_PORT:-22}" bash -s -- "$IAC_VARIABLES" << 'EOF'
+#  apt-get update >/dev/null 2>&1
+#  command -v unzip >/dev/null 2>&1 || apt-get install -y unzip
+#  command -v rclone >/dev/null 2>&1 || curl https://rclone.org/install.sh | bash
+#EOF
 
 echo "B"
 
