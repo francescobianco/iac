@@ -21,7 +21,7 @@ services:
   nodered:
     image: nodered/node-red:latest
     environment:
-      - TZ=Europe/Amsterdam
+      - TZ=Europe/Rome
     ports:
       - "1880:1880"
     volumes:
