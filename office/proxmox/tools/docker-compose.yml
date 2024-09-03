@@ -17,6 +17,14 @@ services:
       - ./kanboard/data:/var/www/app/data
       - ./kanboard/plugins:/var/www/app/plugins
 
+  ## https://wiki.yafb.net/
+  dokuwiki:
+    image: dokuwiki/dokuwiki:stable
+    ports:
+      - "8082:8080"
+    volumes:
+      - ./dokuwiki:/storage
+
   ## http://192.168.144.72:1880/
   nodered:
     build: ./docker/nodered
