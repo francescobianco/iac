@@ -1,5 +1,18 @@
 services:
 
+  nginx:
+    image: 'jc21/nginx-proxy-manager:latest'
+    ports:
+      - '80:80'
+      - '443:443'
+      - '81:81'
+    environment:
+      - DISABLE_IPV6=true
+    volumes:
+      - ./nginx/data:/data
+      - ./nginx/letsencrypt:/etc/letsencrypt
+    restart: unless-stopped
+
   ## https://progetti.lab.tp.it/
   kanboard:
     image: kanboard/kanboard:latest
