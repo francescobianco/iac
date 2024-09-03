@@ -2,7 +2,6 @@ services:
 
   nginx:
     image: 'jc21/nginx-proxy-manager:latest'
-    restart: unless-stopped
     ports:
       - '80:80'
       - '443:443'
@@ -12,6 +11,7 @@ services:
     volumes:
       - ./nginx/data:/data
       - ./nginx/letsencrypt:/etc/letsencrypt
+    restart: unless-stopped
 
   statping:
     image: statping/statping
