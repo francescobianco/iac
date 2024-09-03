@@ -25,7 +25,7 @@ services:
     volumes:
       - ./dokuwiki:/storage
 
-  ## http://192.168.144.72:1880/
+  ## http://nodered.lab.tp.it/
   nodered:
     build: ./docker/nodered
     environment:
